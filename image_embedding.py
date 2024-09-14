@@ -14,7 +14,7 @@ class image_embedding_store:
     def __init__(self, dataset_dir) -> None:
         self.dataset_dir = dataset_dir
         self.model = SentenceTransformer('clip-ViT-B-32')
-        self.embedding_dict = self.update_imgage_embedding()
+        self.embedding_dict = self.update_image_embedding()
 
         self.id_to_name = {}
         self.embedding_list = []
@@ -24,7 +24,7 @@ class image_embedding_store:
             self.embedding_list.append(embedding)
             next_id = next_id + 1
 
-    def update_imgage_embedding(self):
+    def update_image_embedding(self):
         embedding_dict = {}
 
         if os.path.isfile(image_pkl_path):

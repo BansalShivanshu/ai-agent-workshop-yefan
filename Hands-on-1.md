@@ -24,4 +24,5 @@ Use the query "How many feet are there in total for all the animals in the image
 - Test the agent with the prompt "How many feet are there in total for all the animals in the images in the dataset folder"
 
 # Exercise 3: [Optional]
-Add your favorite animal to the dataset, and have fun with the agent.
+- Can you ask LLM to find a set of images that the total animal feet in those images are equal to 38?
+- Add your favorite animal to the dataset, and have fun with the agent.

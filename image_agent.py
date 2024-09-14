@@ -57,28 +57,11 @@ def get_all_files():
     """
     return img_store.get_all_files()
 
-def get_number_of_feet_for_an_animal(animal: str):
-    response = client.chat.completions.create(
-        model="gpt-4o-2024-08-06",
-        messages=[
-            {"role": "system", "content": "Use a simple integer number to answer the question"},
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": f"How manage feet does {animal} have"},
-                ],
-            }
-        ],
-    )
-    return int(response.choices[0].message.content)
-
-
 # generate_json_schema is a convenient helper function to generate a JSON schema for the functions, so we can skip the tedious work of writing the schema manually.
-functions = [generate_json_schema(f) for f in [
+tools = [generate_json_schema(f) for f in [
     find_image_path_based_on_description, 
     find_animal_in_an_image, 
     get_all_files,
-    # get_number_of_feet_for_an_animal,
     ]]
 
 def run_image_agent(query: str):
@@ -86,7 +69,7 @@ def run_image_agent(query: str):
     assistant = client.beta.assistants.create(
         model='gpt-4o-2024-08-06',
         instructions="You are an image assistant. Your job is helping the user identify and understand the images",
-        tools=functions,
+        tools=tools,
         name="image-agent",
     )
 
@@ -140,6 +123,7 @@ if __name__ == "__main__":
     query_find = "Find the image of a cat reading a book"
     query_animal = "Print out the animals in the image dog_a.png"
     query_animal_feet = "How many feet are there in total for all the animals in the images in the dataset folder"
-    result = run_image_agent(query_animal_feet)
+    query_math = "Can you find a set of images that the total animal feet in those images are equal to 38. Use dynamic programming"
+    result = run_image_agent(query_find)
     print(f"Response from LLM: {result}")
 
