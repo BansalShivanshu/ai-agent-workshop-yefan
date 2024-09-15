@@ -1,5 +1,8 @@
 In this part, a basic reasoning loop is already implemented. You will be adding new tools to the agent and play with LLM reasoning loop.
 
+# Warm-up:
+Follow the demo, and make the show_image agent working.
+
 # Exercise 1: Implement a new tool
 This exercise is to get you familiar with adding new tools to the agent.
 

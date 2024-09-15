@@ -2,6 +2,7 @@ import openai
 import json
 import base64
 from dotenv import load_dotenv
+from PIL import Image
 
 from image_embedding import image_embedding_store
 from details.generate_tools_schema import generate_json_schema
@@ -14,31 +15,26 @@ client = openai.OpenAI()
 dataset_dir = 'dataset'
 img_store = image_embedding_store(dataset_dir)
 
-def find_image_path_based_on_description(description: str):
+#TODO: re-write the function name
+def name_this_function_a(description: str):
     """
-    Finds one image path based on description
-
-    @param description: image description
+    # TODO: describe the function implementation properly
     """
     file_name = img_store.find_closest_image_by_linear_search(description)
     return file_name
 
-def show_image(path: str):
+#TODO: re-write the function name
+def name_this_function_b(path: str):
     """
-    Show the image based on the input path
-
-    @param path: path to the image file
+    # TODO: describe the function implementation properly
     """
-    # TODO: implement this function here using. For example: https://stackoverflow.com/questions/35286540/how-to-display-an-image
-    # TODO: add this function to the tools list
-    # TODO: update the query and ask the LLM to show an image based on description
-    pass
-
-# TODO: add more functions as tools for completing the task of computing the total number of feet in all the images
+    image = Image.open(f'{dataset_dir}/{path}')
+    image.show()
 
 # generate_json_schema is a convenient helper function to generate a JSON schema for the functions, so we can skip the tedious work of writing the schema manually.
 tools = [generate_json_schema(f) for f in [
-    find_image_path_based_on_description,
+    name_this_function_a,
+    name_this_function_b,
     ]]
 
 def run_image_agent(query: str):
@@ -97,7 +93,7 @@ def run_image_agent(query: str):
 
 if __name__ == "__main__":
     # Testing prompts
-    query_find = "Find the image of a cat reading a book"
+    query_find = "Show the image of a cat reading a book"
     result = run_image_agent(query_find)
     print(f"Response from LLM: {result}")
 
