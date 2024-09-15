@@ -11,7 +11,7 @@ Add a new function `find_animal_in_an_image` to the agent, and instruct the agen
 
 ## Instructions:
 - Implement a function `get_animal_category` which calls the OpenAI API to get the animal category of the image. [Example API usage](https://platform.openai.com/docs/guides/vision/uploading-and-processing-images)
-- Use the query "Print out the animals in the image dog_a.png." and test the agent.
+- Use the query "Print out the animals in the image dog_a.png." and test the agent. Expected result: Dog.
 
 # Exercise 2: Design a reasoning agent
 This exercise is to get you familiar with designing your own agent for accomplishing a complex task.
