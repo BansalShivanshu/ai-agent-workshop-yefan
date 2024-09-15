@@ -35,7 +35,7 @@ For the first session, run
 ```
 python image_agent.py
 ```
-If not running into errors, you should see an output like "I have found the image of a cat reading a book".
+If not running into errors, you should see some output from LLM.
 
 For the second session, run
 ```
