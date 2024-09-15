@@ -23,45 +23,22 @@ def find_image_path_based_on_description(description: str):
     file_name = img_store.find_closest_image_by_linear_search(description)
     return file_name
 
-# This is basically a zero-shot image classifier
-def find_animal_in_an_image(path: str):
+def show_image(path: str):
     """
-    Get the animal category of the image
+    Show the image based on the input path
 
-    @param path: file path to the image
+    @param path: path to the image file
     """
-    with open(f"{dataset_dir}/{path}", "rb") as image_file:
-        base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+    # TODO: implement this function here using. For example: https://stackoverflow.com/questions/35286540/how-to-display-an-image
+    # TODO: add this function to the tools list
+    # TODO: update the query and ask the LLM to show an image based on description
+    pass
 
-    response = client.chat.completions.create(
-        model="gpt-4o-2024-08-06",
-        messages=[
-            {"role": "system", "content": "Describe all the animal types and quantities in the image. Only use one word in lowercase for the animal type. Return a python dict object"},
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": "What animal is in this image?"},
-                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}}
-                ],
-            }
-        ],
-    )
-    print(f"In the image {path}\n {response.choices[0].message.content}")
-    return response.choices[0].message.content
-    
-def get_all_files():
-    """
-    Finds all the files to process
-    
-    @returns: a list of file paths
-    """
-    return img_store.get_all_files()
+# TODO: add more functions as tools for completing the task of computing the total number of feet in all the images
 
 # generate_json_schema is a convenient helper function to generate a JSON schema for the functions, so we can skip the tedious work of writing the schema manually.
 tools = [generate_json_schema(f) for f in [
-    find_image_path_based_on_description, 
-    find_animal_in_an_image, 
-    get_all_files,
+    find_image_path_based_on_description,
     ]]
 
 def run_image_agent(query: str):
@@ -121,9 +98,6 @@ def run_image_agent(query: str):
 if __name__ == "__main__":
     # Testing prompts
     query_find = "Find the image of a cat reading a book"
-    query_animal = "Print out the animals in the image dog_a.png"
-    query_animal_feet = "How many feet are there in total for all the animals in the images in the dataset folder"
-    query_math = "Can you find a set of images that the total animal feet in those images are equal to 38. Use dynamic programming"
     result = run_image_agent(query_find)
     print(f"Response from LLM: {result}")
 

@@ -73,67 +73,23 @@ class image_embedding_store:
         return max_item_name
 
     def find_top_k_similar_images(self, description, k=3):
-        text_embedding = self.model.encode(description)
-        distances = []
-        for name, vec in self.embedding_dict.items():
-            similarity = util.cos_sim(text_embedding, vec)
-            distances.append((name, similarity))
+        # TODO: implement this function
+        pass
 
-        # Sort by similarity in descending order
-        distances.sort(key=lambda x: x[1], reverse=True)
-
-        # Get the top k similar images
-        top_k_images = [name for name, _ in distances[:k]]
-        return top_k_images
 
     def find_mmr_images(self, description, k=3):
-        text_embedding = self.model.encode(description)
-        distances = []
-        for name, vec in self.embedding_dict.items():
-            similarity = util.cos_sim(text_embedding, vec)
-            distances.append((name, similarity))
-
-        distances.sort(key=lambda x: x[1], reverse=True)
-        top_k_images = []
-        top_k_similarities = []
-        tolerance = 0.01
-        for dist in distances:
-            if not top_k_images:
-                top_k_images.append(dist[0])
-                top_k_similarities.append(dist[1])
-            else:
-                if math.fabs(dist[1] - top_k_similarities[-1]) > tolerance:
-                    top_k_images.append(dist[0])
-                    top_k_similarities.append(dist[1])
-            if len(top_k_images) == k:
-                break
-
-        return top_k_images
+        # TODO: implement this function
+        pass
 
     # Vector search algorithms
     def find_top_k_by_kd_tree(self, description, k=3):
         # Question: What's the time complexity of building the kd tree? and what's the complexity of querying the kd tree?
-        tree = spatial.KDTree(self.embedding_list)
-
-        text_embedding = self.model.encode(description)
-        dist, index = tree.query(text_embedding, k=k)
-
-        if k==1:
-            return [self.id_to_name[index]]
-        return [self.id_to_name[i] for i in index]
+        # TODO: implement this function
+        pass
     
     def find_top_k_by_faiss(self, description, k=3):
-        text_embedding = np.array([self.model.encode(description)]).astype('float32')
-        embedding_array = np.array(self.embedding_list).astype('float32')
-
-        # EXPERIMENT: Try a different type of index. What's its pros and cons.
-        index = faiss.IndexFlatL2(embedding_array.shape[1]) 
-        index.add(embedding_array)
-
-        distances, indices = index.search(text_embedding, k)
-
-        top_k_images = [self.id_to_name[i] for i in indices[0]]
-        return top_k_images
+        #TODO: implement this function
+        pass
 
 # Test stub for the different search algorithms
 if __name__ == "__main__":
@@ -146,11 +102,12 @@ if __name__ == "__main__":
     closest_image = img_store.find_closest_image_by_linear_search(query)
     print(f"Closest image: {closest_image}")
 
-    top_k_images = img_store.find_top_k_by_kd_tree(query)
-    print(f"Top k images: {top_k_images}")
+    # TODO: as you implement the functions above, you can uncomment the functions below for testing
+    # top_k_images = img_store.find_top_k_by_kd_tree(query)
+    # print(f"Top k images: {top_k_images}")
 
-    top_k_images = img_store.find_top_k_by_faiss(query)
-    print(f"Top k images: {top_k_images}")
+    # top_k_images = img_store.find_top_k_by_faiss(query)
+    # print(f"Top k images: {top_k_images}")
 
-    top_k_mmr = img_store.find_mmr_images(query)
-    print(f"Top k mmr images: {top_k_mmr}")
+    # top_k_mmr = img_store.find_mmr_images(query)
+    # print(f"Top k mmr images: {top_k_mmr}")
