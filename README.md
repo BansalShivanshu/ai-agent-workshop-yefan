@@ -23,7 +23,16 @@ Goals and instructions of each session are in `Hands-on-1.md` and `Hands-on-2.md
    ```
    pip install virtualenv
    ``` 
-   Activate the virtual environment (by running the scripts in the `venv/Scripts` folder), then install the dependencies through pip:
+   Activate the virtual environment
+   ```
+   source venv/bin/activate
+   ```
+   Activate the virtual environment
+   ```
+   (Windows)   ./venv/Scripts/activate
+   (Linux/Mac) source venv/bin/activate
+   ```
+   then install the dependencies through pip:
    ```
    pip install -r requirements.txt
    ```
